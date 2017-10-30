@@ -31,6 +31,32 @@ function writeConfig(conf) {
   });
 }
 
+client.on('message', (msg) => {
+  // Only accept messages in servers (i.e. not PMs)
+  if (!msg.guild) {
+    return;
+  }
+
+
+  const match = msg.content.match(/(?:^|\s)(thank(s| you)?|thx|ty)(?:$|\s)/);
+  if (!match) {
+    return;
+  }
+
+  console.log(`> ${msg.author.username}: ${msg.content}`);
+
+  readConfig()
+    .then((config) => {
+      const user = client.users.get(config.uid);
+      if (!user) {
+        console.error(`couldn't find user ${config.uid}`);
+        return;
+      }
+
+      user.send(`${msg.author} said ${match[1]} in ${msg.channel}`);
+    });
+});
+
 readConfig()
   .then((config) => {
     client.login(config.token);
