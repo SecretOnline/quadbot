@@ -38,7 +38,7 @@ client.on('message', (msg) => {
   }
 
 
-  const match = msg.content.match(/(?:^|\s)(thank(s| you)?|thx|ty)(?:$|\s)/);
+  const match = msg.content.match(/(?:^|\W)(thank(s| you)?|thx|ty)(?:$|\W)/i);
   if (!match) {
     return;
   }
