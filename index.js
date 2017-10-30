@@ -53,7 +53,7 @@ client.on('message', (msg) => {
         return;
       }
 
-      user.send(`${msg.author} said ${match[1]} in ${msg.channel}`);
+      user.send(`${msg.author} said "${match[1]}" in ${msg.channel}`);
     });
 });
 
